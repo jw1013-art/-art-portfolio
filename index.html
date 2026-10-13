@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#151515">
+<title>Portfolio</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#151515;font-family:system-ui,sans-serif}.gallery{max-width:1440px;margin:auto;padding:clamp(16px,4vw,64px);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,2.5vw,36px);align-items:start}.piece{border:0;padding:0;background:#222;cursor:zoom-in;display:block;overflow:hidden}.piece img{display:block;width:100%;height:auto;transition:transform .4s ease}.piece:hover img{transform:scale(1.025)}.piece:nth-child(3){grid-column:1/-1;max-width:750px;width:100%;justify-self:center}dialog{border:0;padding:0;background:transparent;max-width:100vw;max-height:100vh;width:100vw;height:100vh;overflow:hidden}dialog::backdrop{background:rgba(0,0,0,.96)}dialog[open]{display:grid;place-items:center}dialog img{max-width:95vw;max-height:94vh;object-fit:contain;cursor:zoom-out}dialog button{position:fixed;top:12px;right:18px;background:rgba(40,40,40,.7);border:0;color:white;font-size:30px;line-height:1;width:44px;height:44px;cursor:pointer;border-radius:50%}@media(max-width:700px){.gallery{grid-template-columns:1fr;padding:12px;gap:12px}.piece:nth-child(3){grid-column:auto;max-width:none}}
+</style>
+</head>
+<body>
+<main class="gallery" aria-label="작업물 갤러리">
+<button class="piece" aria-label="첫 번째 작품 크게 보기"><img src="images/art-01.jpg" alt="노란 코트를 입은 검을 든 캐릭터 일러스트" fetchpriority="high"></button>
+<button class="piece" aria-label="두 번째 작품 크게 보기"><img src="images/art-02.jpg" alt="흑백 고양이 귀 캐릭터 일러스트" loading="lazy"></button>
+<button class="piece" aria-label="세 번째 작품 크게 보기"><img src="images/art-03.jpg" alt="앉은 자세의 갈색 머리 캐릭터 일러스트" loading="lazy"></button>
+</main>
+<dialog id="viewer" aria-label="작품 크게 보기"><img id="full" alt=""><button id="close" aria-label="닫기">×</button></dialog>
+<script>
+const viewer=document.getElementById('viewer'),full=document.getElementById('full');
+document.querySelectorAll('.piece').forEach(p=>p.addEventListener('click',()=>{const img=p.querySelector('img');full.src=img.src;full.alt=img.alt;viewer.showModal()}));
+document.getElementById('close').addEventListener('click',()=>viewer.close());
+viewer.addEventListener('click',e=>{if(e.target===viewer||e.target===full)viewer.close()});
+</script>
+</body>
+</html>
